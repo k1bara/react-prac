@@ -1,18 +1,33 @@
-# React + Vite
+Области хранения данных:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- база данных на json-server
+- BFF
+- redux store
 
-Currently, two official plugins are available:
+Сущности приложения
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- пользователь: БД (список пользователей), BFF (текущая сессия), стор (отображение в браузере)
 
-## React Compiler
+- роль пользователя БД (список ролей), BFF (сессия пользователя с ролью). стор (использование на клиенте)
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- статьи: БД (список статей), стор (отображение в браузере)
 
-Note: This will impact Vite dev & build performances.
+- комментарии: БД (список комментариев), стор (отображение в браузере)
 
-## Expanding the ESLint configuration
+Таблица БД:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- пользователь - users: id / login / password / registed_at / role_id
+- роли - roles: id / name
+- статьи - posts: id / title / image_url / content / published_at
+- комментарии comments: id / author_id / posts_id / content
+
+Схема состояния на BFF:
+
+- сессия текущего пользователя: login / password / role
+
+Схема для redux-store на клиенте:
+
+- user: id / login / roleId
+- posts: массив post: id / title / imageUrl / publushedAt / commentsCount
+- post: id / title / imageUrl / content / publushedAt / comments: массив comment: id / author / content / publushedAt
+- users: массив user: id / login / registedAt / role
